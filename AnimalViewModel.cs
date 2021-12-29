@@ -35,7 +35,7 @@ namespace WpfApp5
             AnimalSelecionado = Animais.FirstOrDefault();
             novoComando = new RelayCommand((object param) =>
             {
-                var viewModel = (AnimalViewModel)param;
+                AnimalViewModel viewModel = (AnimalViewModel)param;
                 Animal animalNovo = new Animal();
                 int maxID = 0;
                 if (viewModel.Animais.Any())
