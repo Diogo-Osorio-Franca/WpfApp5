@@ -1,0 +1,25 @@
+﻿<Window x:Class="WpfApp5.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp5" d:DataContext="{d:DesignInstance Type=local:AnimalViewModel}"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <DataGrid ItemsSource="{Binding Animais}" AutoGenerateColumns="False" IsReadOnly="True" Margin="154,23,56,120" SelectedItem="{Binding AnimalSelecionado}" SelectionChanged="DataGrid_SelectionChanged"
+            >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding ID}"/>
+                <DataGridTextColumn Header="Nome" Binding="{Binding Nome}"/>
+                <DataGridTextColumn Header="Raça" Binding="{Binding raça}"/>
+                <DataGridTextColumn Header="Idade" Binding="{Binding idade}"/>
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Deletar" HorizontalAlignment="Left" Margin="10,151,0,0" VerticalAlignment="Top" Height="26" Width="55" CommandParameter="{Binding}" Command="{Binding comandoDeletar}"/>
+        <Button Content="Editar" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Height="26" Width="58" CommandParameter="{Binding}" Command="{Binding comandoEditar}"/>
+        <Button Content="Adicionar" HorizontalAlignment="Left" Margin="8,98,0,0" VerticalAlignment="Top" Height="26" Width="60" CommandParameter="{Binding}" Command="{Binding novoComando}"/>
+
+    </Grid>
+</Window>

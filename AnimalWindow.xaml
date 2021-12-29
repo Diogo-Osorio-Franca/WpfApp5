@@ -1,0 +1,29 @@
+﻿<Window x:Class="WpfApp5.AnimalWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp5"
+        mc:Ignorable="d"
+        Title="AnimalWindow" Height="450" Width="800">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="pt-br" Text="Nome"/></TextBlock>
+        <TextBox TextWrapping="Wrap" Text="{Binding Nome}" Margin="10,31,410,341"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="pt-br" Text="Raça"/></TextBlock>
+        <TextBox TextWrapping="Wrap" Text="{Binding raça}" Margin="10,119,410,245"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="pt-br" Text="Idade"/></TextBlock>
+        <TextBox TextWrapping="Wrap" Text="{Binding idade}" Margin="10,236,410,107" RenderTransformOrigin="0.5,0.5">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.55"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <Button Content="OK" HorizontalAlignment="Left" Margin="496,370,0,0" VerticalAlignment="Top" Height="30" Width="106" Click="Button_Click" IsDefault="True"/>
+        <Button Content="Cancelar" HorizontalAlignment="Left" Margin="200,370,0,0" VerticalAlignment="Top" Height="30" Width="106" IsCancel="True"/>
+
+    </Grid>
+</Window>
