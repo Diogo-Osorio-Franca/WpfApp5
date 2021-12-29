@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Windows.Input;
 
@@ -36,7 +36,7 @@ namespace WpfApp5
             novoComando = new RelayCommand((object param) =>
             {
                 var viewModel = (AnimalViewModel)param;
-                var animalNovo = new Animal();
+                Animal animalNovo = new Animal();
                 int maxID = 0;
                 if (viewModel.Animais.Any())
                 {
@@ -44,7 +44,7 @@ namespace WpfApp5
                 }
                 animalNovo.ID = maxID + 1;
 
-                var fw = new AnimalWindow();
+                AnimalWindow fw = new AnimalWindow();
                 fw.DataContext = animalNovo;
                 fw.ShowDialog();
 
@@ -57,15 +57,15 @@ namespace WpfApp5
             comandoDeletar = new RelayCommand((object param) =>
             {
 
-                var viewModel = (AnimalViewModel)param;
+                AnimalViewModel viewModel = (AnimalViewModel)param;
                 viewModel.Animais.Remove(viewModel.AnimalSelecionado);
                 viewModel.AnimalSelecionado = viewModel.Animais.FirstOrDefault();
             });
             comandoEditar = new RelayCommand((object param) =>
             {
-                var viewModel = (AnimalViewModel)param;
-                var cloneAnimal = (Animal)viewModel.AnimalSelecionado;
-                var fw = new AnimalWindow();
+                AnimalViewModel viewModel = (AnimalViewModel)param;
+                Animal cloneAnimal = (Animal)viewModel.AnimalSelecionado;
+                AnimalWindow fw = new AnimalWindow();
                 fw.DataContext = cloneAnimal;
                 fw.ShowDialog();
 
