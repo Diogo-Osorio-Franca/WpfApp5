@@ -1,16 +1,17 @@
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 
 namespace WpfApp5
 {
-    public class AnimalViewModel : BaseNotifyPropertyChanged, ICommand
+    public class AnimalViewModel
     {
         public ICommand novoComando { get; set; }
 
         public ICommand comandoDeletar { get; set; }
         public ICommand comandoEditar { get; set; }
-        public System.Collections.ObjectModel.ObservableCollection<Animal> Animais { get; set; }
+        public ObservableCollection<Animal> Animais {get; set;}
 
         public Animal _animalSelecionado;
 
@@ -19,12 +20,12 @@ namespace WpfApp5
         public Animal AnimalSelecionado
         {
             get { return _animalSelecionado; }
-            set { SetField(ref _animalSelecionado, value); }
+            set { _animalSelecionado = value; }
         }
 
         public AnimalViewModel()
         {
-            Animais = new System.Collections.ObjectModel.ObservableCollection<Animal>();
+            Animais = new ObservableCollection<Animal>();
             Animais.Add(new Animal()
             {
                 ID = 1,
@@ -33,14 +34,18 @@ namespace WpfApp5
                 idade = 5
             });
             AnimalSelecionado = Animais.FirstOrDefault();
+            IniciaComandos();
+        }
+        public void IniciaComandos()
+        {
             novoComando = new RelayCommand((object param) =>
             {
-                AnimalViewModel viewModel = (AnimalViewModel)param;
+
                 Animal animalNovo = new Animal();
                 int maxID = 0;
-                if (viewModel.Animais.Any())
+                if (Animais.Any())
                 {
-                    maxID = viewModel.Animais.Max(f => f.ID);
+                    maxID = Animais.Max(f => f.ID);
                 }
                 animalNovo.ID = maxID + 1;
 
@@ -50,44 +55,32 @@ namespace WpfApp5
 
                 if (fw.DialogResult.HasValue && fw.DialogResult.Value)
                 {
-                    viewModel.Animais.Add(animalNovo);
-                    viewModel.AnimalSelecionado = animalNovo;
+                    Animais.Add(animalNovo);
+                    AnimalSelecionado = animalNovo;
                 }
             });
             comandoDeletar = new RelayCommand((object param) =>
             {
-
-                AnimalViewModel viewModel = (AnimalViewModel)param;
-                viewModel.Animais.Remove(viewModel.AnimalSelecionado);
-                viewModel.AnimalSelecionado = viewModel.Animais.FirstOrDefault();
+                Animais.Remove(AnimalSelecionado);
+                AnimalSelecionado = Animais.FirstOrDefault();
             });
             comandoEditar = new RelayCommand((object param) =>
             {
-                AnimalViewModel viewModel = (AnimalViewModel)param;
-                Animal cloneAnimal = (Animal)viewModel.AnimalSelecionado;
+
+                Animal cloneAnimal = (Animal)AnimalSelecionado;
                 AnimalWindow fw = new AnimalWindow();
                 fw.DataContext = cloneAnimal;
                 fw.ShowDialog();
 
                 if (fw.DialogResult.HasValue && fw.DialogResult.Value)
                 {
-                    viewModel.AnimalSelecionado.Nome = cloneAnimal.Nome;
-                    viewModel.AnimalSelecionado.ID = cloneAnimal.ID;
-                    viewModel.AnimalSelecionado.raça = cloneAnimal.raça;
-                    viewModel.AnimalSelecionado.idade = cloneAnimal.idade;
+                    AnimalSelecionado.Nome = cloneAnimal.Nome;
+                    AnimalSelecionado.ID = cloneAnimal.ID;
+                    AnimalSelecionado.raça = cloneAnimal.raça;
+                    AnimalSelecionado.idade = cloneAnimal.idade;
 
                 }
             });
-        }
-
-        public bool CanExecute(object? parameter)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Execute(object? parameter)
-        {
-            throw new NotImplementedException();
         }
     }
 }
